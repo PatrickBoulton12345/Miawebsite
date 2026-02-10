@@ -2,66 +2,60 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <title>For Chloe</title>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Great+Vibes&family=Playfair+Display:ital,wght@0,400;0,700;1,400&display=swap');
 
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
 
         body {
             min-height: 100vh;
+            min-height: 100dvh;
             display: flex;
             align-items: center;
             justify-content: center;
             background: #8B0000;
             background-image:
-                radial-gradient(ellipse at 20% 50%, rgba(180, 40, 40, 0.6) 0%, transparent 50%),
-                radial-gradient(ellipse at 80% 50%, rgba(180, 40, 40, 0.6) 0%, transparent 50%),
-                radial-gradient(ellipse at 50% 50%, rgba(139, 0, 0, 1) 0%, #5a0000 100%);
+                radial-gradient(ellipse at 20% 50%, rgba(180,40,40,0.6) 0%, transparent 50%),
+                radial-gradient(ellipse at 80% 50%, rgba(180,40,40,0.6) 0%, transparent 50%),
+                radial-gradient(ellipse at 50% 50%, rgba(139,0,0,1) 0%, #5a0000 100%);
             overflow: hidden;
             font-family: 'Playfair Display', Georgia, serif;
             color: #fdf0d5;
             position: relative;
         }
 
-        /* Vintage paper texture overlay */
+        /* Vintage texture */
         body::before {
             content: '';
             position: fixed;
-            top: 0; left: 0; right: 0; bottom: 0;
-            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='noise'%3E%3CfeTurbulence baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='200' height='200' filter='url(%23noise)' opacity='0.03'/%3E%3C/svg%3E");
+            inset: 0;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='200' height='200' filter='url(%23n)' opacity='0.03'/%3E%3C/svg%3E");
             pointer-events: none;
             z-index: 1;
         }
 
-        /* Lace border effect */
+        /* Lace border */
         body::after {
             content: '';
             position: fixed;
             top: 10px; left: 10px; right: 10px; bottom: 10px;
-            border: 2px solid rgba(253, 240, 213, 0.2);
+            border: 2px solid rgba(253,240,213,0.2);
             border-radius: 8px;
             pointer-events: none;
             z-index: 2;
-            box-shadow:
-                inset 0 0 30px rgba(90, 0, 0, 0.4),
-                0 0 30px rgba(90, 0, 0, 0.4);
+            box-shadow: inset 0 0 30px rgba(90,0,0,0.4), 0 0 30px rgba(90,0,0,0.4);
         }
 
-        .container {
-            text-align: center;
-            position: relative;
-            z-index: 10;
-            padding: 40px 20px;
-            max-width: 600px;
+        .vignette {
+            position: fixed; inset: 0;
+            background: radial-gradient(ellipse at center, transparent 50%, rgba(40,0,0,0.6) 100%);
+            pointer-events: none;
+            z-index: 1;
         }
 
-        /* Cherub decorations using CSS art */
+        /* ========== CHERUBS & DECORATION ========== */
         .cherub {
             position: fixed;
             opacity: 0.15;
@@ -69,48 +63,63 @@
             z-index: 0;
             animation: float 6s ease-in-out infinite;
         }
-
-        .cherub-1 { top: 5%; left: 5%; animation-delay: 0s; }
-        .cherub-2 { top: 8%; right: 8%; animation-delay: 1.5s; transform: scaleX(-1); }
+        .cherub-1 { top: 5%; left: 5%; }
+        .cherub-2 { top: 8%; right: 8%; animation-delay: 1.5s; transform: scaleX(-1); animation-name: float-mirror; }
         .cherub-3 { bottom: 10%; left: 8%; animation-delay: 3s; }
-        .cherub-4 { bottom: 8%; right: 5%; animation-delay: 4.5s; transform: scaleX(-1); }
+        .cherub-4 { bottom: 8%; right: 5%; animation-delay: 4.5s; transform: scaleX(-1); animation-name: float-mirror; }
         .cherub-5 { top: 40%; left: 2%; animation-delay: 2s; font-size: 50px; }
-        .cherub-6 { top: 35%; right: 2%; animation-delay: 3.5s; font-size: 50px; transform: scaleX(-1); }
+        .cherub-6 { top: 35%; right: 2%; animation-delay: 3.5s; font-size: 50px; transform: scaleX(-1); animation-name: float-mirror; }
 
         @keyframes float {
             0%, 100% { transform: translateY(0); }
             50% { transform: translateY(-15px); }
         }
-
-        .cherub-2, .cherub-4, .cherub-6 {
-            animation-name: float-mirror;
-        }
-
         @keyframes float-mirror {
             0%, 100% { transform: scaleX(-1) translateY(0); }
             50% { transform: scaleX(-1) translateY(-15px); }
         }
 
-        /* Small floating hearts */
         .floating-heart {
             position: fixed;
-            color: rgba(253, 240, 213, 0.08);
+            color: rgba(253,240,213,0.08);
             z-index: 0;
             animation: drift 8s ease-in-out infinite;
         }
-
         @keyframes drift {
             0%, 100% { transform: translateY(0) rotate(0deg); }
             25% { transform: translateY(-20px) rotate(10deg); }
             75% { transform: translateY(10px) rotate(-5deg); }
         }
 
-        /* Ornamental divider */
-        .ornament {
-            font-size: 28px;
-            color: rgba(253, 240, 213, 0.5);
-            margin: 15px 0;
-            letter-spacing: 10px;
+        .rose {
+            position: fixed; z-index: 0; opacity: 0.12;
+        }
+        .rose-tl { top: 20px; left: 20px; transform: rotate(-15deg); }
+        .rose-tr { top: 20px; right: 20px; transform: rotate(15deg) scaleX(-1); }
+        .rose-bl { bottom: 20px; left: 20px; transform: rotate(15deg); }
+        .rose-br { bottom: 20px; right: 20px; transform: rotate(-15deg) scaleX(-1); }
+
+        /* ========== SCREENS ========== */
+        .screen {
+            position: fixed;
+            inset: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 10;
+            transition: opacity 0.8s ease, transform 0.8s ease;
+        }
+        .screen.hidden {
+            opacity: 0;
+            pointer-events: none;
+            transform: scale(0.95);
+        }
+
+        /* ========== SCREEN 1: INTRO ========== */
+        .intro-content {
+            text-align: center;
+            padding: 40px 20px;
+            max-width: 600px;
         }
 
         .ornament-line {
@@ -120,45 +129,27 @@
             gap: 15px;
             margin: 20px 0;
         }
-
         .ornament-line::before,
         .ornament-line::after {
             content: '';
             width: 80px;
             height: 1px;
-            background: linear-gradient(to right, transparent, rgba(253, 240, 213, 0.4), transparent);
+            background: linear-gradient(to right, transparent, rgba(253,240,213,0.4), transparent);
         }
+        .ornament-line span { color: rgba(253,240,213,0.5); font-size: 18px; }
 
-        .ornament-line span {
-            color: rgba(253, 240, 213, 0.5);
-            font-size: 18px;
-        }
-
-        /* Main title */
         .title {
             font-family: 'Great Vibes', cursive;
             font-size: clamp(48px, 10vw, 80px);
             line-height: 1.1;
-            text-shadow: 2px 2px 10px rgba(0, 0, 0, 0.4);
-            margin-bottom: 5px;
+            text-shadow: 2px 2px 10px rgba(0,0,0,0.4);
             animation: fadeInDown 1.5s ease-out;
         }
 
-        .subtitle {
-            font-family: 'Playfair Display', serif;
-            font-style: italic;
-            font-size: clamp(18px, 4vw, 26px);
-            color: rgba(253, 240, 213, 0.85);
-            margin-top: 10px;
-            letter-spacing: 2px;
-            animation: fadeInUp 1.5s ease-out 0.5s both;
-        }
-
         .feature-intro {
-            font-family: 'Playfair Display', serif;
             font-style: italic;
             font-size: clamp(16px, 3.5vw, 22px);
-            color: rgba(253, 240, 213, 0.8);
+            color: rgba(253,240,213,0.8);
             margin-top: 30px;
             letter-spacing: 1px;
             animation: fadeInUp 1.5s ease-out 1s both;
@@ -168,249 +159,416 @@
             from { opacity: 0; transform: translateY(-30px); }
             to { opacity: 1; transform: translateY(0); }
         }
-
         @keyframes fadeInUp {
             from { opacity: 0; transform: translateY(30px); }
             to { opacity: 1; transform: translateY(0); }
         }
 
-        /* Heart reveal area */
+        /* Heart reveal */
         .heart-container {
             position: relative;
-            width: 260px;
-            height: 260px;
+            width: 260px; height: 260px;
             margin: 30px auto 20px;
             animation: fadeInUp 1.5s ease-out 1.5s both;
             cursor: pointer;
             -webkit-tap-highlight-color: transparent;
         }
 
-        /* Hidden message behind the heart */
         .hidden-message {
             position: absolute;
-            top: 50%;
-            left: 50%;
+            top: 50%; left: 50%;
             transform: translate(-50%, -50%);
             font-family: 'Great Vibes', cursive;
             font-size: 32px;
-            color: #fdf0d5;
-            text-shadow: 1px 1px 8px rgba(0, 0, 0, 0.5);
+            text-shadow: 1px 1px 8px rgba(0,0,0,0.5);
             white-space: nowrap;
             opacity: 0;
             transition: opacity 0.8s ease 0.3s;
             z-index: 5;
         }
+        .heart-container.revealed .hidden-message { opacity: 1; }
 
-        .heart-container.revealed .hidden-message {
-            opacity: 1;
-        }
-
-        /* The draggable heart */
         .heart-cover {
-            position: absolute;
-            top: 0; left: 0;
-            width: 100%;
-            height: 100%;
+            position: absolute; inset: 0;
             z-index: 15;
-            transition: transform 0.6s cubic-bezier(0.68, -0.55, 0.265, 1.55), opacity 0.5s ease;
+            transition: transform 0.6s cubic-bezier(0.68,-0.55,0.265,1.55), opacity 0.5s ease;
             touch-action: none;
             user-select: none;
             -webkit-user-select: none;
         }
-
         .heart-cover.swiped {
             transform: translateX(300px) rotate(30deg);
             opacity: 0;
             pointer-events: none;
         }
-
         .heart-cover svg {
-            width: 100%;
-            height: 100%;
-            filter: drop-shadow(0 5px 20px rgba(0, 0, 0, 0.4));
+            width: 100%; height: 100%;
+            filter: drop-shadow(0 5px 20px rgba(0,0,0,0.4));
         }
 
-        /* Swipe hint */
         .swipe-hint {
-            font-family: 'Playfair Display', serif;
             font-style: italic;
             font-size: 14px;
-            color: rgba(253, 240, 213, 0.5);
+            color: rgba(253,240,213,0.5);
             margin-top: 5px;
             animation: fadeInUp 1.5s ease-out 2s both;
             letter-spacing: 1px;
         }
+        .swipe-hint.hidden-hint { opacity: 0; transition: opacity 0.4s ease; }
 
-        .swipe-hint.hidden {
-            opacity: 0;
-            transition: opacity 0.4s ease;
-        }
-
-        /* Arrow animation on the heart */
         .swipe-arrow {
             position: absolute;
-            top: 50%;
-            left: 50%;
+            top: 50%; left: 50%;
             transform: translate(-50%, -50%);
             z-index: 20;
             pointer-events: none;
             animation: swipeHint 2s ease-in-out infinite 3s;
             opacity: 0;
         }
-
         @keyframes swipeHint {
-            0% { opacity: 0; transform: translate(-50%, -50%) translateX(0); }
+            0% { opacity: 0; transform: translate(-50%,-50%) translateX(0); }
             20% { opacity: 0.7; }
-            50% { opacity: 0.7; transform: translate(-50%, -50%) translateX(25px); }
-            80% { opacity: 0; transform: translate(-50%, -50%) translateX(50px); }
-            100% { opacity: 0; transform: translate(-50%, -50%) translateX(0); }
+            50% { opacity: 0.7; transform: translate(-50%,-50%) translateX(25px); }
+            80% { opacity: 0; transform: translate(-50%,-50%) translateX(50px); }
+            100% { opacity: 0; transform: translate(-50%,-50%) translateX(0); }
         }
+        .heart-container.revealed .swipe-arrow { display: none; }
 
-        .heart-container.revealed .swipe-arrow {
+        /* Play button after reveal */
+        .play-btn {
             display: none;
+            margin-top: 30px;
+            padding: 14px 40px;
+            font-family: 'Playfair Display', serif;
+            font-style: italic;
+            font-size: 18px;
+            color: #fdf0d5;
+            background: rgba(180,30,60,0.6);
+            border: 1px solid rgba(253,240,213,0.3);
+            border-radius: 30px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            letter-spacing: 2px;
+            animation: fadeInUp 0.8s ease-out both;
         }
+        .play-btn:hover {
+            background: rgba(200,40,70,0.8);
+            border-color: rgba(253,240,213,0.6);
+            transform: scale(1.05);
+        }
+        .play-btn.show { display: inline-block; }
 
-        /* Sparkle burst on reveal */
+        /* Sparkle */
         .sparkle {
-            position: absolute;
-            width: 6px;
-            height: 6px;
+            position: fixed;
+            width: 6px; height: 6px;
             background: #fdf0d5;
             border-radius: 50%;
             pointer-events: none;
             opacity: 0;
-            z-index: 30;
+            z-index: 100;
         }
-
         .sparkle.burst {
             animation: sparkleBurst 0.8s ease-out forwards;
         }
-
         @keyframes sparkleBurst {
-            0% { opacity: 1; transform: translate(0, 0) scale(1); }
+            0% { opacity: 1; transform: translate(0,0) scale(1); }
             100% { opacity: 0; transform: translate(var(--tx), var(--ty)) scale(0); }
         }
 
-        /* Rose decorations in corners */
-        .rose {
+        /* ========== SCREEN 2: GAME ========== */
+        .game-screen {
+            flex-direction: column;
+            user-select: none;
+            -webkit-user-select: none;
+        }
+
+        .game-hud {
             position: fixed;
-            z-index: 0;
-            opacity: 0.12;
+            top: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 30px;
+            z-index: 50;
+            font-size: 16px;
+            letter-spacing: 1px;
+        }
+        .game-hud > div {
+            background: rgba(0,0,0,0.35);
+            padding: 8px 18px;
+            border-radius: 20px;
+            border: 1px solid rgba(253,240,213,0.15);
+            backdrop-filter: blur(4px);
+            -webkit-backdrop-filter: blur(4px);
+        }
+        .hud-val {
+            font-weight: 700;
+            color: #ff8899;
         }
 
-        .rose-tl {
-            top: 20px; left: 20px;
-            transform: rotate(-15deg);
-        }
-
-        .rose-tr {
-            top: 20px; right: 20px;
-            transform: rotate(15deg) scaleX(-1);
-        }
-
-        .rose-bl {
-            bottom: 20px; left: 20px;
-            transform: rotate(15deg);
-        }
-
-        .rose-br {
-            bottom: 20px; right: 20px;
-            transform: rotate(-15deg) scaleX(-1);
-        }
-
-        /* Vintage vignette */
-        .vignette {
+        .game-canvas {
             position: fixed;
-            top: 0; left: 0; right: 0; bottom: 0;
-            background: radial-gradient(ellipse at center, transparent 50%, rgba(40, 0, 0, 0.6) 100%);
+            inset: 0;
+            z-index: 20;
+            overflow: hidden;
+        }
+
+        /* Falling heart */
+        .falling-heart {
+            position: absolute;
+            cursor: pointer;
+            z-index: 25;
+            transition: none;
+            -webkit-tap-highlight-color: transparent;
+        }
+        .falling-heart svg {
+            filter: drop-shadow(0 3px 10px rgba(0,0,0,0.4));
             pointer-events: none;
-            z-index: 1;
         }
 
+        .falling-heart.caught {
+            animation: heartCaught 0.5s ease-out forwards;
+            pointer-events: none;
+        }
+        @keyframes heartCaught {
+            0% { transform: scale(1); opacity: 1; }
+            50% { transform: scale(1.4); opacity: 0.8; }
+            100% { transform: scale(0); opacity: 0; }
+        }
+
+        .falling-heart.missed {
+            animation: heartMissed 0.4s ease-out forwards;
+            pointer-events: none;
+        }
+        @keyframes heartMissed {
+            to { opacity: 0; transform: translateY(40px) scale(0.5); }
+        }
+
+        /* Compliment pop-up */
+        .compliment-pop {
+            position: fixed;
+            font-family: 'Great Vibes', cursive;
+            font-size: clamp(22px, 5vw, 30px);
+            color: #fdf0d5;
+            text-shadow: 1px 1px 6px rgba(0,0,0,0.6);
+            pointer-events: none;
+            z-index: 60;
+            animation: complimentFloat 1.8s ease-out forwards;
+            white-space: nowrap;
+        }
+        @keyframes complimentFloat {
+            0% { opacity: 0; transform: translateY(0) scale(0.5); }
+            15% { opacity: 1; transform: translateY(-20px) scale(1); }
+            70% { opacity: 1; transform: translateY(-60px) scale(1); }
+            100% { opacity: 0; transform: translateY(-90px) scale(0.8); }
+        }
+
+        /* Countdown overlay */
+        .countdown-overlay {
+            position: fixed; inset: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 70;
+            background: rgba(90,0,0,0.5);
+            backdrop-filter: blur(3px);
+            -webkit-backdrop-filter: blur(3px);
+        }
+        .countdown-overlay.hidden { display: none; }
+        .countdown-num {
+            font-family: 'Great Vibes', cursive;
+            font-size: 120px;
+            text-shadow: 2px 2px 20px rgba(0,0,0,0.5);
+            animation: countPulse 0.8s ease-out;
+        }
+        .countdown-text {
+            font-family: 'Great Vibes', cursive;
+            font-size: 48px;
+            text-shadow: 2px 2px 20px rgba(0,0,0,0.5);
+            animation: countPulse 0.8s ease-out;
+        }
+        @keyframes countPulse {
+            0% { transform: scale(0.3); opacity: 0; }
+            50% { transform: scale(1.2); opacity: 1; }
+            100% { transform: scale(1); opacity: 1; }
+        }
+
+        /* Game instructions */
+        .game-intro-text {
+            position: fixed;
+            bottom: 60px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-style: italic;
+            font-size: 15px;
+            color: rgba(253,240,213,0.5);
+            z-index: 75;
+            text-align: center;
+            white-space: nowrap;
+        }
+
+        /* ========== SCREEN 3: FINALE ========== */
+        .finale-content {
+            text-align: center;
+            padding: 40px 20px;
+            max-width: 650px;
+        }
+
+        .finale-score {
+            font-family: 'Great Vibes', cursive;
+            font-size: clamp(28px, 6vw, 42px);
+            margin-bottom: 10px;
+            animation: fadeInDown 1s ease-out;
+        }
+        .finale-score .score-num {
+            color: #ff8899;
+            font-size: 1.3em;
+        }
+
+        .finale-title {
+            font-family: 'Great Vibes', cursive;
+            font-size: clamp(42px, 9vw, 72px);
+            line-height: 1.15;
+            text-shadow: 2px 2px 10px rgba(0,0,0,0.4);
+            margin: 20px 0;
+            animation: fadeInDown 1s ease-out 0.3s both;
+        }
+
+        .finale-message {
+            font-style: italic;
+            font-size: clamp(15px, 3vw, 19px);
+            color: rgba(253,240,213,0.85);
+            line-height: 1.7;
+            margin: 15px 0 30px;
+            animation: fadeInUp 1s ease-out 0.6s both;
+        }
+
+        .finale-compliments {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 10px;
+            margin: 20px 0;
+            animation: fadeInUp 1s ease-out 0.9s both;
+        }
+        .finale-compliments .comp-tag {
+            font-family: 'Great Vibes', cursive;
+            font-size: 18px;
+            padding: 6px 16px;
+            background: rgba(180,30,60,0.4);
+            border: 1px solid rgba(253,240,213,0.15);
+            border-radius: 20px;
+        }
+
+        .replay-btn {
+            margin-top: 25px;
+            padding: 12px 35px;
+            font-family: 'Playfair Display', serif;
+            font-style: italic;
+            font-size: 16px;
+            color: #fdf0d5;
+            background: rgba(180,30,60,0.5);
+            border: 1px solid rgba(253,240,213,0.25);
+            border-radius: 30px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            letter-spacing: 1px;
+            animation: fadeInUp 1s ease-out 1.2s both;
+        }
+        .replay-btn:hover {
+            background: rgba(200,40,70,0.7);
+            border-color: rgba(253,240,213,0.5);
+            transform: scale(1.05);
+        }
+
+        /* Finale heart rain */
+        .finale-rain-heart {
+            position: fixed;
+            pointer-events: none;
+            z-index: 5;
+            opacity: 0.25;
+            animation: finaleRain linear forwards;
+        }
+        @keyframes finaleRain {
+            0% { transform: translateY(-60px) rotate(0deg); opacity: 0; }
+            10% { opacity: 0.25; }
+            90% { opacity: 0.25; }
+            100% { transform: translateY(110vh) rotate(360deg); opacity: 0; }
+        }
+
+        /* ========== MOBILE ========== */
         @media (max-width: 500px) {
             .cherub { font-size: 50px; }
             .cherub-5, .cherub-6 { font-size: 35px; }
             .heart-container { width: 200px; height: 200px; }
             .hidden-message { font-size: 26px; }
+            .game-hud { gap: 15px; font-size: 14px; }
+            .game-hud > div { padding: 6px 12px; }
         }
     </style>
 </head>
 <body>
 
-    <div class="vignette"></div>
+<div class="vignette"></div>
 
-    <!-- Cherub decorations -->
-    <div class="cherub cherub-1" aria-hidden="true">&#x1F47C;</div>
-    <div class="cherub cherub-2" aria-hidden="true">&#x1F47C;</div>
-    <div class="cherub cherub-3" aria-hidden="true">&#x1F47C;</div>
-    <div class="cherub cherub-4" aria-hidden="true">&#x1F47C;</div>
-    <div class="cherub cherub-5" aria-hidden="true">&#x1F47C;</div>
-    <div class="cherub cherub-6" aria-hidden="true">&#x1F47C;</div>
+<!-- Cherubs -->
+<div class="cherub cherub-1" aria-hidden="true">&#x1F47C;</div>
+<div class="cherub cherub-2" aria-hidden="true">&#x1F47C;</div>
+<div class="cherub cherub-3" aria-hidden="true">&#x1F47C;</div>
+<div class="cherub cherub-4" aria-hidden="true">&#x1F47C;</div>
+<div class="cherub cherub-5" aria-hidden="true">&#x1F47C;</div>
+<div class="cherub cherub-6" aria-hidden="true">&#x1F47C;</div>
 
-    <!-- Floating hearts -->
-    <div class="floating-heart" style="top:15%;left:12%;font-size:30px;animation-delay:0s;" aria-hidden="true">&hearts;</div>
-    <div class="floating-heart" style="top:25%;right:15%;font-size:22px;animation-delay:2s;" aria-hidden="true">&hearts;</div>
-    <div class="floating-heart" style="bottom:20%;left:18%;font-size:26px;animation-delay:4s;" aria-hidden="true">&hearts;</div>
-    <div class="floating-heart" style="bottom:30%;right:10%;font-size:34px;animation-delay:1s;" aria-hidden="true">&hearts;</div>
-    <div class="floating-heart" style="top:60%;left:6%;font-size:20px;animation-delay:5s;" aria-hidden="true">&hearts;</div>
-    <div class="floating-heart" style="top:50%;right:6%;font-size:28px;animation-delay:3s;" aria-hidden="true">&hearts;</div>
+<!-- Floating hearts -->
+<div class="floating-heart" style="top:15%;left:12%;font-size:30px;" aria-hidden="true">&hearts;</div>
+<div class="floating-heart" style="top:25%;right:15%;font-size:22px;animation-delay:2s;" aria-hidden="true">&hearts;</div>
+<div class="floating-heart" style="bottom:20%;left:18%;font-size:26px;animation-delay:4s;" aria-hidden="true">&hearts;</div>
+<div class="floating-heart" style="bottom:30%;right:10%;font-size:34px;animation-delay:1s;" aria-hidden="true">&hearts;</div>
+<div class="floating-heart" style="top:60%;left:6%;font-size:20px;animation-delay:5s;" aria-hidden="true">&hearts;</div>
+<div class="floating-heart" style="top:50%;right:6%;font-size:28px;animation-delay:3s;" aria-hidden="true">&hearts;</div>
 
-    <!-- Rose corner SVGs -->
-    <svg class="rose rose-tl" width="100" height="100" viewBox="0 0 100 100" aria-hidden="true">
-        <circle cx="50" cy="45" r="18" fill="#fdf0d5" opacity="0.6"/>
-        <circle cx="42" cy="38" r="14" fill="#fdf0d5" opacity="0.4"/>
-        <circle cx="58" cy="38" r="14" fill="#fdf0d5" opacity="0.4"/>
-        <circle cx="50" cy="32" r="12" fill="#fdf0d5" opacity="0.5"/>
-        <ellipse cx="40" cy="70" rx="8" ry="16" fill="#fdf0d5" opacity="0.3" transform="rotate(-20 40 70)"/>
-        <ellipse cx="60" cy="70" rx="8" ry="16" fill="#fdf0d5" opacity="0.3" transform="rotate(20 60 70)"/>
-    </svg>
-    <svg class="rose rose-tr" width="100" height="100" viewBox="0 0 100 100" aria-hidden="true">
-        <circle cx="50" cy="45" r="18" fill="#fdf0d5" opacity="0.6"/>
-        <circle cx="42" cy="38" r="14" fill="#fdf0d5" opacity="0.4"/>
-        <circle cx="58" cy="38" r="14" fill="#fdf0d5" opacity="0.4"/>
-        <circle cx="50" cy="32" r="12" fill="#fdf0d5" opacity="0.5"/>
-        <ellipse cx="40" cy="70" rx="8" ry="16" fill="#fdf0d5" opacity="0.3" transform="rotate(-20 40 70)"/>
-        <ellipse cx="60" cy="70" rx="8" ry="16" fill="#fdf0d5" opacity="0.3" transform="rotate(20 60 70)"/>
-    </svg>
-    <svg class="rose rose-bl" width="100" height="100" viewBox="0 0 100 100" aria-hidden="true">
-        <circle cx="50" cy="45" r="18" fill="#fdf0d5" opacity="0.6"/>
-        <circle cx="42" cy="38" r="14" fill="#fdf0d5" opacity="0.4"/>
-        <circle cx="58" cy="38" r="14" fill="#fdf0d5" opacity="0.4"/>
-        <circle cx="50" cy="32" r="12" fill="#fdf0d5" opacity="0.5"/>
-        <ellipse cx="40" cy="70" rx="8" ry="16" fill="#fdf0d5" opacity="0.3" transform="rotate(-20 40 70)"/>
-        <ellipse cx="60" cy="70" rx="8" ry="16" fill="#fdf0d5" opacity="0.3" transform="rotate(20 60 70)"/>
-    </svg>
-    <svg class="rose rose-br" width="100" height="100" viewBox="0 0 100 100" aria-hidden="true">
-        <circle cx="50" cy="45" r="18" fill="#fdf0d5" opacity="0.6"/>
-        <circle cx="42" cy="38" r="14" fill="#fdf0d5" opacity="0.4"/>
-        <circle cx="58" cy="38" r="14" fill="#fdf0d5" opacity="0.4"/>
-        <circle cx="50" cy="32" r="12" fill="#fdf0d5" opacity="0.5"/>
-        <ellipse cx="40" cy="70" rx="8" ry="16" fill="#fdf0d5" opacity="0.3" transform="rotate(-20 40 70)"/>
-        <ellipse cx="60" cy="70" rx="8" ry="16" fill="#fdf0d5" opacity="0.3" transform="rotate(20 60 70)"/>
-    </svg>
+<!-- Corner roses -->
+<svg class="rose rose-tl" width="100" height="100" viewBox="0 0 100 100" aria-hidden="true">
+    <circle cx="50" cy="45" r="18" fill="#fdf0d5" opacity="0.6"/><circle cx="42" cy="38" r="14" fill="#fdf0d5" opacity="0.4"/>
+    <circle cx="58" cy="38" r="14" fill="#fdf0d5" opacity="0.4"/><circle cx="50" cy="32" r="12" fill="#fdf0d5" opacity="0.5"/>
+    <ellipse cx="40" cy="70" rx="8" ry="16" fill="#fdf0d5" opacity="0.3" transform="rotate(-20 40 70)"/>
+    <ellipse cx="60" cy="70" rx="8" ry="16" fill="#fdf0d5" opacity="0.3" transform="rotate(20 60 70)"/>
+</svg>
+<svg class="rose rose-tr" width="100" height="100" viewBox="0 0 100 100" aria-hidden="true">
+    <circle cx="50" cy="45" r="18" fill="#fdf0d5" opacity="0.6"/><circle cx="42" cy="38" r="14" fill="#fdf0d5" opacity="0.4"/>
+    <circle cx="58" cy="38" r="14" fill="#fdf0d5" opacity="0.4"/><circle cx="50" cy="32" r="12" fill="#fdf0d5" opacity="0.5"/>
+    <ellipse cx="40" cy="70" rx="8" ry="16" fill="#fdf0d5" opacity="0.3" transform="rotate(-20 40 70)"/>
+    <ellipse cx="60" cy="70" rx="8" ry="16" fill="#fdf0d5" opacity="0.3" transform="rotate(20 60 70)"/>
+</svg>
+<svg class="rose rose-bl" width="100" height="100" viewBox="0 0 100 100" aria-hidden="true">
+    <circle cx="50" cy="45" r="18" fill="#fdf0d5" opacity="0.6"/><circle cx="42" cy="38" r="14" fill="#fdf0d5" opacity="0.4"/>
+    <circle cx="58" cy="38" r="14" fill="#fdf0d5" opacity="0.4"/><circle cx="50" cy="32" r="12" fill="#fdf0d5" opacity="0.5"/>
+    <ellipse cx="40" cy="70" rx="8" ry="16" fill="#fdf0d5" opacity="0.3" transform="rotate(-20 40 70)"/>
+    <ellipse cx="60" cy="70" rx="8" ry="16" fill="#fdf0d5" opacity="0.3" transform="rotate(20 60 70)"/>
+</svg>
+<svg class="rose rose-br" width="100" height="100" viewBox="0 0 100 100" aria-hidden="true">
+    <circle cx="50" cy="45" r="18" fill="#fdf0d5" opacity="0.6"/><circle cx="42" cy="38" r="14" fill="#fdf0d5" opacity="0.4"/>
+    <circle cx="58" cy="38" r="14" fill="#fdf0d5" opacity="0.4"/><circle cx="50" cy="32" r="12" fill="#fdf0d5" opacity="0.5"/>
+    <ellipse cx="40" cy="70" rx="8" ry="16" fill="#fdf0d5" opacity="0.3" transform="rotate(-20 40 70)"/>
+    <ellipse cx="60" cy="70" rx="8" ry="16" fill="#fdf0d5" opacity="0.3" transform="rotate(20 60 70)"/>
+</svg>
 
-    <!-- Main content -->
-    <div class="container">
+<!-- ============ SCREEN 1: INTRO ============ -->
+<div class="screen" id="introScreen">
+    <div class="intro-content">
         <div class="ornament-line"><span>&hearts;</span></div>
-
         <h1 class="title">Chloe, I Love You</h1>
-
         <div class="ornament-line"><span>&#10048;</span></div>
-
         <p class="feature-intro">Your best feature is...</p>
 
         <div class="heart-container" id="heartContainer">
-            <!-- Hidden message behind heart -->
             <div class="hidden-message">Lovely Breasts</div>
-
-            <!-- Swipe arrow hint -->
             <div class="swipe-arrow">
                 <svg width="40" height="24" viewBox="0 0 40 24" fill="none">
                     <path d="M0 12H35M35 12L24 2M35 12L24 22" stroke="rgba(253,240,213,0.8)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
                 </svg>
             </div>
-
-            <!-- Heart cover to swipe away -->
             <div class="heart-cover" id="heartCover">
                 <svg viewBox="0 0 260 260" xmlns="http://www.w3.org/2000/svg">
                     <defs>
@@ -419,26 +577,11 @@
                             <stop offset="50%" stop-color="#cc1133"/>
                             <stop offset="100%" stop-color="#880022"/>
                         </radialGradient>
-                        <filter id="heartShadow">
-                            <feDropShadow dx="0" dy="4" stdDeviation="6" flood-color="#000" flood-opacity="0.3"/>
-                        </filter>
                     </defs>
-                    <path d="M130 230
-                        C 130 230, 30 170, 20 110
-                        C 10 50, 60 20, 100 20
-                        C 120 20, 130 40, 130 60
-                        C 130 40, 140 20, 160 20
-                        C 200 20, 250 50, 240 110
-                        C 230 170, 130 230, 130 230Z"
-                        fill="url(#heartGrad)"
-                        filter="url(#heartShadow)"
-                    />
-                    <!-- Highlight sheen -->
+                    <path d="M130 230 C130 230,30 170,20 110 C10 50,60 20,100 20 C120 20,130 40,130 60 C130 40,140 20,160 20 C200 20,250 50,240 110 C230 170,130 230,130 230Z"
+                        fill="url(#heartGrad)" />
                     <ellipse cx="100" cy="65" rx="25" ry="18" fill="white" opacity="0.15" transform="rotate(-30 100 65)"/>
-                    <!-- Lace pattern on heart -->
                     <circle cx="130" cy="100" r="50" fill="none" stroke="rgba(255,255,255,0.08)" stroke-width="1" stroke-dasharray="4 4"/>
-                    <circle cx="130" cy="100" r="35" fill="none" stroke="rgba(255,255,255,0.06)" stroke-width="1" stroke-dasharray="3 5"/>
-                    <!-- Tiny text on heart -->
                     <text x="130" y="125" text-anchor="middle" font-family="'Great Vibes', cursive" font-size="18" fill="rgba(255,255,255,0.5)">swipe me</text>
                 </svg>
             </div>
@@ -446,109 +589,402 @@
 
         <p class="swipe-hint" id="swipeHint">&larr; Swipe the heart away &rarr;</p>
 
+        <button class="play-btn" id="playBtn">Catch Cupid's Hearts</button>
+
         <div class="ornament-line"><span>&hearts;</span></div>
     </div>
+</div>
 
-    <script>
-        (function() {
-            const container = document.getElementById('heartContainer');
-            const cover = document.getElementById('heartCover');
-            const hint = document.getElementById('swipeHint');
+<!-- ============ SCREEN 2: GAME ============ -->
+<div class="screen game-screen hidden" id="gameScreen">
+    <div class="game-hud" id="gameHud" style="display:none;">
+        <div>&hearts; <span class="hud-val" id="hudScore">0</span></div>
+        <div>Time: <span class="hud-val" id="hudTime">30</span></div>
+        <div>Missed: <span class="hud-val" id="hudMissed">0</span></div>
+    </div>
+    <div class="game-canvas" id="gameCanvas"></div>
+    <div class="countdown-overlay" id="countdown">
+        <div>
+            <div class="countdown-num" id="countdownNum">3</div>
+            <div class="game-intro-text">Tap the falling hearts!</div>
+        </div>
+    </div>
+</div>
 
-            let startX = 0;
-            let currentX = 0;
-            let isDragging = false;
+<!-- ============ SCREEN 3: FINALE ============ -->
+<div class="screen hidden" id="finaleScreen">
+    <div class="finale-content" id="finaleContent"></div>
+</div>
 
-            function onStart(e) {
-                if (container.classList.contains('revealed')) return;
-                isDragging = true;
-                startX = e.type.includes('mouse') ? e.clientX : e.touches[0].clientX;
-                cover.style.transition = 'none';
+<script>
+(function() {
+    // ==================== COMPLIMENTS ====================
+    const compliments = [
+        "Your gorgeous smile",
+        "Those beautiful eyes",
+        "Your infectious laugh",
+        "That perfect bum",
+        "Your kind heart",
+        "Those stunning legs",
+        "Your wicked sense of humour",
+        "The way you kiss me",
+        "Your lovely breasts",
+        "That adorable nose",
+        "Your incredible body",
+        "The way you look at me",
+        "Your soft skin",
+        "Those cute dimples",
+        "Your amazing hair",
+        "The way you say my name",
+        "Your cheeky personality",
+        "Those gorgeous lips",
+        "Your perfect face",
+        "Everything about you"
+    ];
+
+    // ==================== SCREEN 1: INTRO ====================
+    const container = document.getElementById('heartContainer');
+    const cover = document.getElementById('heartCover');
+    const hint = document.getElementById('swipeHint');
+    const playBtn = document.getElementById('playBtn');
+
+    let startX = 0, currentX = 0, isDragging = false;
+
+    function introReveal() {
+        cover.classList.add('swiped');
+        container.classList.add('revealed');
+        hint.classList.add('hidden-hint');
+        createSparkles(container);
+        setTimeout(() => playBtn.classList.add('show'), 1200);
+    }
+
+    function onStart(e) {
+        if (container.classList.contains('revealed')) return;
+        isDragging = true;
+        startX = e.type.includes('mouse') ? e.clientX : e.touches[0].clientX;
+        cover.style.transition = 'none';
+    }
+    function onMove(e) {
+        if (!isDragging) return;
+        e.preventDefault();
+        const cx = e.type.includes('mouse') ? e.clientX : e.touches[0].clientX;
+        currentX = Math.max(0, cx - startX);
+        cover.style.transform = `translateX(${currentX}px) rotate(${currentX*0.12}deg)`;
+        cover.style.opacity = Math.max(0, 1 - currentX / 200);
+    }
+    function onEnd() {
+        if (!isDragging) return;
+        isDragging = false;
+        cover.style.transition = 'transform 0.6s cubic-bezier(0.68,-0.55,0.265,1.55), opacity 0.5s ease';
+        if (currentX > 80) { introReveal(); }
+        else { cover.style.transform = 'translateX(0) rotate(0)'; cover.style.opacity = '1'; }
+        currentX = 0;
+    }
+
+    cover.addEventListener('touchstart', onStart, { passive: true });
+    cover.addEventListener('touchmove', onMove, { passive: false });
+    cover.addEventListener('touchend', onEnd);
+    cover.addEventListener('mousedown', onStart);
+    window.addEventListener('mousemove', onMove);
+    window.addEventListener('mouseup', onEnd);
+    cover.addEventListener('click', () => {
+        if (!container.classList.contains('revealed') && currentX === 0) introReveal();
+    });
+
+    playBtn.addEventListener('click', () => {
+        switchScreen('introScreen', 'gameScreen');
+        setTimeout(startCountdown, 600);
+    });
+
+    // ==================== SCREEN TRANSITIONS ====================
+    function switchScreen(fromId, toId) {
+        document.getElementById(fromId).classList.add('hidden');
+        document.getElementById(toId).classList.remove('hidden');
+    }
+
+    // ==================== SCREEN 2: GAME ====================
+    const gameCanvas = document.getElementById('gameCanvas');
+    const hudScore = document.getElementById('hudScore');
+    const hudTime = document.getElementById('hudTime');
+    const hudMissed = document.getElementById('hudMissed');
+    const gameHud = document.getElementById('gameHud');
+    const countdownEl = document.getElementById('countdown');
+    const countdownNum = document.getElementById('countdownNum');
+
+    let score = 0, missed = 0, timeLeft = 30;
+    let gameInterval, spawnInterval, timerInterval;
+    let caughtCompliments = [];
+    const usedCompliments = new Set();
+
+    function startCountdown() {
+        let count = 3;
+        countdownEl.classList.remove('hidden');
+        countdownNum.textContent = count;
+
+        const cdInterval = setInterval(() => {
+            count--;
+            if (count > 0) {
+                countdownNum.textContent = count;
+                countdownNum.style.animation = 'none';
+                void countdownNum.offsetWidth;
+                countdownNum.style.animation = 'countPulse 0.8s ease-out';
+            } else if (count === 0) {
+                countdownNum.style.display = 'none';
+                const goText = document.createElement('div');
+                goText.className = 'countdown-text';
+                goText.textContent = 'Catch the Hearts!';
+                countdownNum.parentElement.appendChild(goText);
+            } else {
+                clearInterval(cdInterval);
+                countdownEl.classList.add('hidden');
+                startGame();
             }
+        }, 900);
+    }
 
-            function onMove(e) {
-                if (!isDragging) return;
-                e.preventDefault();
-                const clientX = e.type.includes('mouse') ? e.clientX : e.touches[0].clientX;
-                currentX = clientX - startX;
+    function startGame() {
+        score = 0; missed = 0; timeLeft = 30;
+        caughtCompliments = [];
+        usedCompliments.clear();
+        hudScore.textContent = '0';
+        hudTime.textContent = '30';
+        hudMissed.textContent = '0';
+        gameHud.style.display = 'flex';
+        gameCanvas.innerHTML = '';
 
-                // Only allow right swipe
-                if (currentX < 0) currentX = 0;
+        // Spawn hearts
+        spawnInterval = setInterval(spawnHeart, 800);
 
-                const rotation = currentX * 0.12;
-                const opacity = Math.max(0, 1 - currentX / 200);
-                cover.style.transform = `translateX(${currentX}px) rotate(${rotation}deg)`;
-                cover.style.opacity = opacity;
+        // Timer
+        timerInterval = setInterval(() => {
+            timeLeft--;
+            hudTime.textContent = timeLeft;
+            if (timeLeft <= 0) endGame();
+        }, 1000);
+
+        // Speed up spawning over time
+        setTimeout(() => { clearInterval(spawnInterval); spawnInterval = setInterval(spawnHeart, 600); }, 10000);
+        setTimeout(() => { clearInterval(spawnInterval); spawnInterval = setInterval(spawnHeart, 450); }, 20000);
+    }
+
+    function getHeartSVG(size) {
+        const hue = 340 + Math.random() * 30;
+        const light = 45 + Math.random() * 15;
+        return `<svg width="${size}" height="${size}" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+            <path d="M50 88 C50 88,10 62,6 38 C2 14,24 2,40 2 C48 2,50 12,50 20 C50 12,52 2,60 2 C76 2,98 14,94 38 C90 62,50 88,50 88Z"
+                fill="hsl(${hue},80%,${light}%)" />
+            <ellipse cx="38" cy="22" rx="10" ry="7" fill="white" opacity="0.2" transform="rotate(-25 38 22)"/>
+        </svg>`;
+    }
+
+    function spawnHeart() {
+        if (timeLeft <= 0) return;
+
+        const heart = document.createElement('div');
+        heart.className = 'falling-heart';
+        const size = 50 + Math.random() * 30;
+        heart.innerHTML = getHeartSVG(size);
+
+        const x = 30 + Math.random() * (window.innerWidth - 90);
+        heart.style.left = x + 'px';
+        heart.style.top = '-80px';
+        heart.style.width = size + 'px';
+        heart.style.height = size + 'px';
+
+        // Speed: pixels per frame (faster as time goes on)
+        const baseSpeed = 1.5 + Math.random() * 1.5;
+        const speedBoost = (30 - timeLeft) * 0.04;
+        const speed = baseSpeed + speedBoost;
+
+        // Wobble
+        const wobbleAmp = 20 + Math.random() * 30;
+        const wobbleSpeed = 0.02 + Math.random() * 0.02;
+        let wobblePhase = Math.random() * Math.PI * 2;
+
+        let y = -80;
+        let alive = true;
+
+        function handleCatch(e) {
+            if (!alive) return;
+            e.preventDefault();
+            e.stopPropagation();
+            alive = false;
+            heart.classList.add('caught');
+            score++;
+            hudScore.textContent = score;
+
+            // Pick a compliment
+            let comp;
+            const unused = compliments.filter(c => !usedCompliments.has(c));
+            if (unused.length > 0) {
+                comp = unused[Math.floor(Math.random() * unused.length)];
+            } else {
+                comp = compliments[Math.floor(Math.random() * compliments.length)];
             }
+            usedCompliments.add(comp);
+            caughtCompliments.push(comp);
 
-            function onEnd() {
-                if (!isDragging) return;
-                isDragging = false;
-                cover.style.transition = 'transform 0.6s cubic-bezier(0.68, -0.55, 0.265, 1.55), opacity 0.5s ease';
+            // Show compliment
+            showCompliment(comp, parseFloat(heart.style.left) + size/2, y);
 
-                if (currentX > 80) {
-                    // Swiped far enough — reveal!
-                    cover.classList.add('swiped');
-                    container.classList.add('revealed');
-                    hint.classList.add('hidden');
-                    createSparkles();
-                } else {
-                    // Snap back
-                    cover.style.transform = 'translateX(0) rotate(0deg)';
-                    cover.style.opacity = '1';
-                }
-                currentX = 0;
+            // Sparkles at catch point
+            createSparklesAt(parseFloat(heart.style.left) + size/2, y + size/2);
+
+            setTimeout(() => heart.remove(), 600);
+        }
+
+        heart.addEventListener('click', handleCatch);
+        heart.addEventListener('touchstart', handleCatch, { passive: false });
+
+        gameCanvas.appendChild(heart);
+
+        function fall() {
+            if (!alive) return;
+            y += speed;
+            wobblePhase += wobbleSpeed;
+            const wx = Math.sin(wobblePhase) * wobbleAmp;
+            heart.style.top = y + 'px';
+            heart.style.left = (x + wx) + 'px';
+
+            if (y > window.innerHeight + 20) {
+                alive = false;
+                missed++;
+                hudMissed.textContent = missed;
+                heart.classList.add('missed');
+                setTimeout(() => heart.remove(), 500);
+                return;
             }
+            requestAnimationFrame(fall);
+        }
+        requestAnimationFrame(fall);
+    }
 
-            // Touch events
-            cover.addEventListener('touchstart', onStart, { passive: true });
-            cover.addEventListener('touchmove', onMove, { passive: false });
-            cover.addEventListener('touchend', onEnd);
+    function showCompliment(text, x, y) {
+        const pop = document.createElement('div');
+        pop.className = 'compliment-pop';
+        pop.textContent = text;
+        // Keep within viewport
+        pop.style.left = Math.min(Math.max(x, 100), window.innerWidth - 100) + 'px';
+        pop.style.top = Math.max(y, 60) + 'px';
+        pop.style.transform = 'translateX(-50%)';
+        document.body.appendChild(pop);
+        setTimeout(() => pop.remove(), 2000);
+    }
 
-            // Mouse events
-            cover.addEventListener('mousedown', onStart);
-            window.addEventListener('mousemove', onMove);
-            window.addEventListener('mouseup', onEnd);
+    function endGame() {
+        clearInterval(spawnInterval);
+        clearInterval(timerInterval);
+        gameHud.style.display = 'none';
 
-            // Click fallback (tap)
-            cover.addEventListener('click', function() {
-                if (!container.classList.contains('revealed') && currentX === 0) {
-                    cover.classList.add('swiped');
-                    container.classList.add('revealed');
-                    hint.classList.add('hidden');
-                    createSparkles();
-                }
-            });
+        // Remove remaining hearts
+        document.querySelectorAll('.falling-heart').forEach(h => {
+            h.classList.add('missed');
+            setTimeout(() => h.remove(), 500);
+        });
 
-            function createSparkles() {
-                const rect = container.getBoundingClientRect();
-                const cx = rect.left + rect.width / 2;
-                const cy = rect.top + rect.height / 2;
+        setTimeout(() => {
+            switchScreen('gameScreen', 'finaleScreen');
+            showFinale();
+        }, 800);
+    }
 
-                for (let i = 0; i < 16; i++) {
-                    const sparkle = document.createElement('div');
-                    sparkle.className = 'sparkle';
+    // ==================== SCREEN 3: FINALE ====================
+    function showFinale() {
+        const fc = document.getElementById('finaleContent');
+        const total = score + missed;
+        const pct = total > 0 ? Math.round((score / total) * 100) : 0;
 
-                    const angle = (Math.PI * 2 / 16) * i + (Math.random() * 0.4 - 0.2);
-                    const dist = 60 + Math.random() * 80;
-                    const tx = Math.cos(angle) * dist;
-                    const ty = Math.sin(angle) * dist;
+        let title, message;
+        if (pct >= 80) {
+            title = "You Caught My Heart";
+            message = "Just like you've completely captured mine. Every single thing about you drives me wild, Chloe. You are perfection.";
+        } else if (pct >= 50) {
+            title = "My Heart Beats for You";
+            message = "You caught so many because there are so many things I adore about you, Chloe. I could never list them all.";
+        } else {
+            title = "You're Still My Everything";
+            message = "Even the ones that got away can't change how mad I am about you, Chloe. Every inch of you is perfect.";
+        }
 
-                    sparkle.style.left = cx + 'px';
-                    sparkle.style.top = cy + 'px';
-                    sparkle.style.setProperty('--tx', tx + 'px');
-                    sparkle.style.setProperty('--ty', ty + 'px');
-                    sparkle.style.width = (3 + Math.random() * 5) + 'px';
-                    sparkle.style.height = sparkle.style.width;
-                    sparkle.style.background = Math.random() > 0.5 ? '#fdf0d5' : '#ff6688';
+        // Build unique caught list (max 8 shown)
+        const uniqueCaught = [...new Set(caughtCompliments)];
+        const shown = uniqueCaught.slice(0, 8);
 
-                    document.body.appendChild(sparkle);
+        fc.innerHTML = `
+            <div class="ornament-line"><span>&hearts;</span></div>
+            <div class="finale-score">You caught <span class="score-num">${score}</span> hearts</div>
+            <h2 class="finale-title">${title}</h2>
+            <div class="ornament-line"><span>&#10048;</span></div>
+            <p class="finale-message">${message}</p>
+            ${shown.length > 0 ? `
+            <div class="finale-compliments">
+                ${shown.map(c => `<span class="comp-tag">${c}</span>`).join('')}
+            </div>` : ''}
+            <div class="ornament-line"><span>&hearts;</span></div>
+            <button class="replay-btn" id="replayBtn">Play Again</button>
+        `;
 
-                    requestAnimationFrame(() => sparkle.classList.add('burst'));
-                    setTimeout(() => sparkle.remove(), 1000);
-                }
+        document.getElementById('replayBtn').addEventListener('click', () => {
+            switchScreen('finaleScreen', 'gameScreen');
+            // Reset countdown
+            countdownEl.classList.remove('hidden');
+            const cNum = countdownEl.querySelector('.countdown-num');
+            cNum.style.display = '';
+            cNum.textContent = '3';
+            const goText = countdownEl.querySelector('.countdown-text');
+            if (goText) goText.remove();
+            setTimeout(startCountdown, 600);
+        });
+
+        // Gentle heart rain in background
+        startFinaleRain();
+    }
+
+    function startFinaleRain() {
+        // Stop any existing
+        if (window._finaleRainInterval) clearInterval(window._finaleRainInterval);
+
+        window._finaleRainInterval = setInterval(() => {
+            if (document.getElementById('finaleScreen').classList.contains('hidden')) {
+                clearInterval(window._finaleRainInterval);
+                return;
             }
-        })();
-    </script>
+            const h = document.createElement('div');
+            h.className = 'finale-rain-heart';
+            const size = 15 + Math.random() * 25;
+            h.innerHTML = `<svg width="${size}" height="${size}" viewBox="0 0 100 100"><path d="M50 88 C50 88,10 62,6 38 C2 14,24 2,40 2 C48 2,50 12,50 20 C50 12,52 2,60 2 C76 2,98 14,94 38 C90 62,50 88,50 88Z" fill="rgba(253,240,213,0.3)"/></svg>`;
+            h.style.left = Math.random() * 100 + 'vw';
+            h.style.animationDuration = (4 + Math.random() * 4) + 's';
+            document.body.appendChild(h);
+            setTimeout(() => h.remove(), 9000);
+        }, 400);
+    }
+
+    // ==================== UTILITIES ====================
+    function createSparkles(el) {
+        const rect = el.getBoundingClientRect();
+        createSparklesAt(rect.left + rect.width/2, rect.top + rect.height/2);
+    }
+
+    function createSparklesAt(cx, cy) {
+        for (let i = 0; i < 12; i++) {
+            const s = document.createElement('div');
+            s.className = 'sparkle';
+            const angle = (Math.PI * 2 / 12) * i + (Math.random() * 0.5 - 0.25);
+            const dist = 40 + Math.random() * 60;
+            s.style.left = cx + 'px';
+            s.style.top = cy + 'px';
+            s.style.setProperty('--tx', Math.cos(angle) * dist + 'px');
+            s.style.setProperty('--ty', Math.sin(angle) * dist + 'px');
+            const sz = (3 + Math.random() * 5) + 'px';
+            s.style.width = sz; s.style.height = sz;
+            s.style.background = Math.random() > 0.5 ? '#fdf0d5' : '#ff6688';
+            document.body.appendChild(s);
+            requestAnimationFrame(() => s.classList.add('burst'));
+            setTimeout(() => s.remove(), 900);
+        }
+    }
+})();
+</script>
 </body>
 </html>
